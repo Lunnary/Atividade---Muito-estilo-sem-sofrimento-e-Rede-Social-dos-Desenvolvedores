@@ -1,0 +1,43 @@
+/* ============================================================
+   CASHLY — estilos personalizados (style.css)
+   ============================================================ */
+
+/* 1) TOKENS DE DESIGN -----------------------------------------
+   As cores da marca ficam definidas UMA única vez aqui.
+   No HTML você consome com a sintaxe de valor arbitrário do
+   Tailwind:   text-[var(--roxo)]   bg-[var(--roxo-claro)]
+   Mudou a cor aqui em cima -> muda no site inteiro.            */
+:root {
+  --roxo: #A63AE6;
+  --roxo-claro: #FAF5FF;
+  --cinza-texto: #6B6584;
+  --preto-texto: #1A1530;
+  --verde-saldo: #008000;
+  --amarelo: #FFCC33;
+  --rosa: #FF6FAA;
+  --lilas: #D095F0;
+}
+
+/* 2) AJUSTES DE BASE ------------------------------------------
+   Valem pra página toda.                                      */
+body {
+  background-color: #FFFFFF;       /* fundo branco puro */
+  color: var(--preto-texto);
+}
+
+/* 3) DETALHES QUE O TAILWIND VIA CDN NÃO FAZ BEM --------------
+   Aqui o CSS "puro" brilha: pseudo-elementos.                 */
+
+/* cor do texto do placeholder dos inputs (ex.: "Buscar...") */
+input::placeholder {
+  color: var(--cinza-texto);
+}
+
+/* barra de rolagem personalizada (toque de capricho) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E0EE;
+  border-radius: 999px;
+}

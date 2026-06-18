@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Figtree:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        baloo: ['"Baloo 2"', 'sans-serif'],
+                        figtree: ['Figtree', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-figtree">
+
+    <!-- Layout geral: sidebar + conteúdo -->
+    <div class="flex min-h-screen">
+
+        <!-- Menu mobile (sem JS): este checkbox guarda o estado aberto/fechado -->
+        <input type="checkbox" id="menu-toggle" class="peer hidden">
+        <!-- Fundo escurecido que fecha o menu ao tocar fora (só no mobile) -->
+        <label for="menu-toggle"
+            class="hidden peer-checked:block lg:peer-checked:hidden fixed inset-0 bg-black/40 z-20"></label>
+
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside
+            class="fixed lg:sticky top-0 left-0 z-30 lg:z-auto h-screen w-64 bg-white border-r border-gray-200 p-6 flex flex-col overflow-y-auto -translate-x-full peer-checked:translate-x-0 lg:translate-x-0 transition-transform duration-300">
+            <div class="flex items-center gap-2">
+                <img src="images/Mascote.png" alt="Cashly" class="w-6 h-6">
+                <h1 class="text-2xl font-bold font-baloo text-[var(--roxo)]">Cashly</h1>
+            </div>
+
+            <!-- Menu de navegação -->
+            <nav class="mt-8">
+                <ul class="flex flex-col gap-1">
+
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-4 rounded-r-xl bg-[var(--roxo-claro)] text-[#A63AE6] font-normal text-sm border-l-4 border-[#A63AE6]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <path
+                                    d="M12.5 17.5V10.8333C12.5 10.6123 12.4122 10.4004 12.2559 10.2441C12.0996 10.0878 11.8877 10 11.6667 10H8.33333C8.11232 10 7.90036 10.0878 7.74408 10.2441C7.5878 10.4004 7.5 10.6123 7.5 10.8333V17.5"
+                                    stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M2.5 8.33333C2.49994 8.09088 2.55278 7.85135 2.65482 7.63142C2.75687 7.4115 2.90566 7.21649 3.09083 7.05999L8.92417 2.05999C9.22499 1.80575 9.60613 1.66626 10 1.66626C10.3939 1.66626 10.775 1.80575 11.0758 2.05999L16.9092 7.05999C17.0943 7.21649 17.2431 7.4115 17.3452 7.63142C17.4472 7.85135 17.5001 8.09088 17.5 8.33333V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V8.33333Z"
+                                    stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-4 rounded-xl text-[var(--cinza-texto)] text-sm font-normal hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <path d="M10 5.83337V17.5" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M2.5 15C2.27899 15 2.06703 14.9122 1.91075 14.7559C1.75447 14.5996 1.66667 14.3877 1.66667 14.1667V3.33333C1.66667 3.11232 1.75447 2.90036 1.91075 2.74408C2.06703 2.5878 2.27899 2.5 2.5 2.5H6.66667C7.55072 2.5 8.39857 2.85119 9.02369 3.47631C9.64881 4.10143 10 4.94928 10 5.83333C10 4.94928 10.3512 4.10143 10.9763 3.47631C11.6014 2.85119 12.4493 2.5 13.3333 2.5H17.5C17.721 2.5 17.933 2.5878 18.0893 2.74408C18.2455 2.90036 18.3333 3.11232 18.3333 3.33333V14.1667C18.3333 14.3877 18.2455 14.5996 18.0893 14.7559C17.933 14.9122 17.721 15 17.5 15H12.5C11.837 15 11.2011 15.2634 10.7322 15.7322C10.2634 16.2011 10 16.837 10 17.5C10 16.837 9.73661 16.2011 9.26777 15.7322C8.79893 15.2634 8.16304 15 7.5 15H2.5Z"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Trilhas
+                        </a>
+
+                    </li>
+
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-4 rounded-xl text-[var(--cinza-texto)] text-sm font-normal hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <path
+                                    d="M16.6667 4.16663H3.33333C2.41286 4.16663 1.66667 4.91282 1.66667 5.83329V14.1666C1.66667 15.0871 2.41286 15.8333 3.33333 15.8333H16.6667C17.5871 15.8333 18.3333 15.0871 18.3333 14.1666V5.83329C18.3333 4.91282 17.5871 4.16663 16.6667 4.16663Z"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M1.66667 8.33337H18.3333" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Transações
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-4 rounded-xl text-[var(--cinza-texto)] text-sm font-normal hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <path d="M10 6.66671V3.33337H6.66667" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M15 6.66663H5C4.07952 6.66663 3.33333 7.41282 3.33333 8.33329V15C3.33333 15.9204 4.07952 16.6666 5 16.6666H15C15.9205 16.6666 16.6667 15.9204 16.6667 15V8.33329C16.6667 7.41282 15.9205 6.66663 15 6.66663Z"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M1.66667 11.6666H3.33333" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M16.6667 11.6666H18.3333" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12.5 10.8334V12.5" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M7.5 10.8334V12.5" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Coach IA
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-4 rounded-xl text-[var(--cinza-texto)] text-sm font-normal hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <path d="M8.33333 10H11.6667" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M8.33333 6.66663H11.6667" stroke="#6B6584" stroke-width="1.66667"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M11.6667 17.5V15C11.6667 14.558 11.4911 14.1341 11.1785 13.8215C10.8659 13.509 10.442 13.3334 10 13.3334C9.55797 13.3334 9.13405 13.509 8.82149 13.8215C8.50893 14.1341 8.33333 14.558 8.33333 15V17.5"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M5 8.33337H3.33333C2.89131 8.33337 2.46738 8.50897 2.15482 8.82153C1.84226 9.13409 1.66667 9.55801 1.66667 10V15.8334C1.66667 16.2754 1.84226 16.6993 2.15482 17.0119C2.46738 17.3244 2.89131 17.5 3.33333 17.5H16.6667C17.1087 17.5 17.5326 17.3244 17.8452 17.0119C18.1577 16.6993 18.3333 16.2754 18.3333 15.8334V7.50004C18.3333 7.05801 18.1577 6.63409 17.8452 6.32153C17.5326 6.00897 17.1087 5.83337 16.6667 5.83337H15"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M5 17.5V4.16667C5 3.72464 5.17559 3.30072 5.48816 2.98816C5.80072 2.67559 6.22464 2.5 6.66667 2.5H13.3333C13.7754 2.5 14.1993 2.67559 14.5118 2.98816C14.8244 3.30072 15 3.72464 15 4.16667V17.5"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Contas bancárias
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-4 rounded-xl text-[var(--cinza-texto)] text-sm font-normal hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                fill="none">
+                                <path
+                                    d="M8.05917 3.44663C8.10508 2.96358 8.32945 2.515 8.68842 2.18853C9.04739 1.86206 9.51519 1.68115 10.0004 1.68115C10.4856 1.68115 10.9534 1.86206 11.3124 2.18853C11.6714 2.515 11.8958 2.96358 11.9417 3.44663C11.9693 3.75868 12.0716 4.05948 12.2401 4.32358C12.4086 4.58768 12.6382 4.8073 12.9096 4.96386C13.1809 5.12042 13.486 5.2093 13.7989 5.22298C14.1119 5.23666 14.4235 5.17474 14.7075 5.04246C15.1484 4.84228 15.6481 4.81331 16.1092 4.9612C16.5703 5.10909 16.9599 5.42326 17.2021 5.84255C17.4443 6.26185 17.5219 6.75627 17.4197 7.22961C17.3175 7.70294 17.0428 8.12131 16.6492 8.4033C16.3928 8.58317 16.1836 8.82214 16.0391 9.09998C15.8946 9.37783 15.8192 9.68639 15.8192 9.99955C15.8192 10.3127 15.8946 10.6213 16.0391 10.8991C16.1836 11.177 16.3928 11.4159 16.6492 11.5958C17.0428 11.8778 17.3175 12.2962 17.4197 12.7695C17.5219 13.2428 17.4443 13.7372 17.2021 14.1565C16.9599 14.5758 16.5703 14.89 16.1092 15.0379C15.6481 15.1858 15.1484 15.1568 14.7075 14.9566C14.4235 14.8244 14.1119 14.7624 13.7989 14.7761C13.486 14.7898 13.1809 14.8787 12.9096 15.0352C12.6382 15.1918 12.4086 15.4114 12.2401 15.6755C12.0716 15.9396 11.9693 16.2404 11.9417 16.5525C11.8958 17.0355 11.6714 17.4841 11.3124 17.8106C10.9534 18.137 10.4856 18.3179 10.0004 18.3179C9.51519 18.3179 9.04739 18.137 8.68842 17.8106C8.32945 17.4841 8.10508 17.0355 8.05917 16.5525C8.03162 16.2403 7.92925 15.9394 7.76072 15.6752C7.5922 15.411 7.36248 15.1913 7.09103 15.0347C6.81958 14.8782 6.51439 14.7893 6.20132 14.7757C5.88824 14.7621 5.5765 14.8242 5.2925 14.9566C4.85158 15.1568 4.35194 15.1858 3.89084 15.0379C3.42973 14.89 3.04015 14.5758 2.7979 14.1565C2.55566 13.7372 2.4781 13.2428 2.5803 12.7695C2.68251 12.2962 2.95717 11.8778 3.35084 11.5958C3.60719 11.4159 3.81644 11.177 3.96091 10.8991C4.10537 10.6213 4.1808 10.3127 4.1808 9.99955C4.1808 9.68639 4.10537 9.37783 3.96091 9.09998C3.81644 8.82214 3.60719 8.58317 3.35084 8.4033C2.95772 8.12117 2.68354 7.70296 2.58159 7.22995C2.47963 6.75694 2.55718 6.26291 2.79916 5.84389C3.04114 5.42487 3.43026 5.11078 3.89091 4.96266C4.35156 4.81455 4.85082 4.84299 5.29167 5.04246C5.57563 5.17474 5.88729 5.23666 6.20025 5.22298C6.51322 5.2093 6.81828 5.12042 7.08962 4.96386C7.36095 4.8073 7.59058 4.58768 7.75906 4.32358C7.92753 4.05948 8.0299 3.75868 8.0575 3.44663"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z"
+                                    stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            Configurações
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <!-- Perfil do usuário (fixado no rodapé da sidebar) -->
+            <div class="mt-auto -mx-6 px-6 pt-4 border-t border-gray-200 flex items-center gap-3">
+                <div
+                    class="w-11 h-11 rounded-full bg-[var(--roxo)] text-white flex items-center justify-center font-semibold shrink-0">
+                    LS
+                </div>
+                <div>
+                    <p class="text-sm font-semibold text-[var(--preto-texto)]">Larissa Silva</p>
+                    <p class="text-xs text-[var(--cinza-texto)]">Nível 5 · 1.240 XP</p>
+                </div>
+            </div>
+
+            <!-- ==================== FIM · SIDEBAR ==================== -->
+             
+        </aside>
+
+        <!-- ==================== CONTEÚDO ==================== -->
+        <main class="flex-1">
+
+            <!-- Cabeçalho: busca, XP, notificações e perfil -->
+            <header
+                class="sticky top-0 z-10 bg-white flex items-center justify-between gap-3 md:gap-6 px-4 md:px-8 py-4 border-b border-gray-200">
+
+                <!-- Botão do menu (hambúrguer) — aparece só no mobile -->
+                <label for="menu-toggle" class="lg:hidden cursor-pointer text-[var(--preto-texto)] shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg>
+                </label>
+
+                <!-- Breadcrumb -->
+                <p class="hidden md:block text-sm text-[var(--cinza-texto)] whitespace-nowrap">
+                    Início / <span class="font-normal text-gray-700">Dashboard</span>
+                </p>
+
+                <div class="flex-1 max-w-xl relative">
+
+                    <!-- Campo de busca -->
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path d="M15.7501 15.75L12.4951 12.495" stroke="#6B6584" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M8.25 14.25C11.5637 14.25 14.25 11.5637 14.25 8.25C14.25 4.93629 11.5637 2.25 8.25 2.25C4.93629 2.25 2.25 4.93629 2.25 8.25C2.25 11.5637 4.93629 14.25 8.25 14.25Z"
+                                stroke="#6B6584" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Buscar..."
+                        class="w-full bg-[#FAF5FF] rounded-xl pl-11 pr-5 py-2 text-sm outline-none">
+                </div>
+
+                <!-- XP · notificações · avatar -->
+                <div class="flex items-center gap-4">
+                    <span
+                        class="hidden sm:inline-block bg-[var(--roxo-claro)] text-[var(--preto-texto)] text-sm font-semibold px-3 py-1 rounded-full">
+                        <img src="images/Mascote.png" alt="Cashly" class="w-5 h-5 inline-block mr-2">
+                        1.240 XP
+                    </span>
+
+                    <!-- Sino de notificações -->
+                    <div class="relative">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path
+                                d="M8.55664 17.5C8.70293 17.7533 8.91332 17.9637 9.16668 18.11C9.42003 18.2563 9.70743 18.3333 9.99997 18.3333C10.2925 18.3333 10.5799 18.2563 10.8333 18.11C11.0866 17.9637 11.297 17.7533 11.4433 17.5"
+                                stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M2.71821 12.7716C2.60935 12.8909 2.53751 13.0393 2.51143 13.1987C2.48534 13.3581 2.50615 13.5217 2.5713 13.6695C2.63646 13.8173 2.74316 13.9429 2.87843 14.0312C3.01369 14.1195 3.1717 14.1665 3.33321 14.1666H16.6665C16.828 14.1667 16.9861 14.1198 17.1214 14.0317C17.2568 13.9436 17.3636 13.8181 17.429 13.6704C17.4943 13.5227 17.5153 13.3592 17.4894 13.1998C17.4635 13.0404 17.3919 12.8919 17.2832 12.7725C16.1749 11.63 14.9999 10.4158 14.9999 6.66663C14.9999 5.34054 14.4731 4.06877 13.5354 3.13109C12.5977 2.19341 11.326 1.66663 9.99988 1.66663C8.6738 1.66663 7.40203 2.19341 6.46435 3.13109C5.52666 4.06877 4.99988 5.34054 4.99988 6.66663C4.99988 10.4158 3.82405 11.63 2.71821 12.7716Z"
+                                stroke="#6B6584" stroke-width="1.66667" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+
+                        <!-- Indicador de notificação -->
+                        <span
+                            class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                    </div>
+                    <div
+                        class="w-9 h-9 rounded-full bg-[var(--roxo)] text-white flex items-center justify-center text-sm font-semibold">
+                        LS
+                    </div>
+                </div>
+            </header>
+
+            <!-- Área saldação -->
+            <div class="p-4 md:p-8">
+                <h2 class="text-2xl md:text-3xl text-[var(--preto-texto)] font-bold">Olá, Larissa! 👋</h2>
+                <p class="text-sm text-[var(--cinza-texto)]">Aqui está seu mês até agora</p>
+
+                <!-- ----- Cards de métricas ----- -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+
+                    <!-- Card 1: Saldo -->
+                    <div class="bg-white rounded-2xl shadow-[0_2px_8px_0_rgba(26,21,48,0.06)] p-5">
+                        <div class="flex items-center gap-3">
+
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M15.8333 5.83333V3.33333C15.8333 3.11232 15.7455 2.90036 15.5893 2.74408C15.433 2.5878 15.221 2.5 15 2.5H4.16667C3.72464 2.5 3.30072 2.67559 2.98816 2.98816C2.67559 3.30072 2.5 3.72464 2.5 4.16667C2.5 4.60869 2.67559 5.03262 2.98816 5.34518C3.30072 5.65774 3.72464 5.83333 4.16667 5.83333H16.6667C16.8877 5.83333 17.0996 5.92113 17.2559 6.07741C17.4122 6.23369 17.5 6.44565 17.5 6.66667V10M17.5 10H15C14.558 10 14.134 10.1756 13.8215 10.4882C13.5089 10.8007 13.3333 11.2246 13.3333 11.6667C13.3333 12.1087 13.5089 12.5326 13.8215 12.8452C14.134 13.1577 14.558 13.3333 15 13.3333H17.5C17.721 13.3333 17.933 13.2455 18.0893 13.0893C18.2455 12.933 18.3333 12.721 18.3333 12.5V10.8333C18.3333 10.6123 18.2455 10.4004 18.0893 10.2441C17.933 10.0878 17.721 10 17.5 10Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M2.5 4.16663V15.8333C2.5 16.2753 2.67559 16.6992 2.98816 17.0118C3.30072 17.3244 3.72464 17.5 4.16667 17.5H16.6667C16.8877 17.5 17.0996 17.4122 17.2559 17.2559C17.4122 17.0996 17.5 16.8876 17.5 16.6666V13.3333"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-[var(--cinza-texto)]">Saldo do mês</p>
+                                <p class="text-xl font-bold text-[var(--verde-saldo)]">R$ 4.280,00</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Gastos -->
+                    <div class="bg-white rounded-2xl shadow-[0_2px_8px_0_rgba(26,21,48,0.06)] p-5">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M13.3334 8.33337C13.3334 9.21743 12.9822 10.0653 12.3571 10.6904C11.732 11.3155 10.8841 11.6667 10.0001 11.6667C9.11603 11.6667 8.26818 11.3155 7.64306 10.6904C7.01794 10.0653 6.66675 9.21743 6.66675 8.33337"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M2.58594 5.02832H17.4143" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M2.83333 4.55579C2.61696 4.84429 2.5 5.19518 2.5 5.55579V16.6666C2.5 17.1087 2.67559 17.5326 2.98816 17.8451C3.30072 18.1577 3.72464 18.3333 4.16667 18.3333H15.8333C16.2754 18.3333 16.6993 18.1577 17.0118 17.8451C17.3244 17.5326 17.5 17.1087 17.5 16.6666V5.55579C17.5 5.19518 17.383 4.84429 17.1667 4.55579L15.5 2.33329C15.3448 2.1263 15.1434 1.95829 14.912 1.84258C14.6806 1.72687 14.4254 1.66663 14.1667 1.66663H5.83333C5.57459 1.66663 5.3194 1.72687 5.08798 1.84258C4.85655 1.95829 4.65525 2.1263 4.5 2.33329L2.83333 4.55579Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-[var(--cinza-texto)]">Gastos</p>
+                                <p class="text-xl font-bold text-[var(--roxo)]">R$ 2.150,00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Economia -->
+                    <div class="bg-white rounded-2xl shadow-[0_2px_8px_0_rgba(26,21,48,0.06)] p-5">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M9.16675 14.1667H11.6667V15.8333C11.6667 16.0543 11.7545 16.2663 11.9108 16.4226C12.0671 16.5789 12.2791 16.6667 12.5001 16.6667H14.1667C14.3878 16.6667 14.5997 16.5789 14.756 16.4226C14.9123 16.2663 15.0001 16.0543 15.0001 15.8333V13.3333C15.3883 13.2041 15.741 12.9862 16.0303 12.6969C16.3196 12.4076 16.5375 12.0549 16.6667 11.6667H17.5001C17.7211 11.6667 17.9331 11.5789 18.0893 11.4226C18.2456 11.2663 18.3334 11.0543 18.3334 10.8333V9.16667C18.3334 8.94565 18.2456 8.73369 18.0893 8.57741C17.9331 8.42113 17.7211 8.33333 17.5001 8.33333H16.6667C16.6667 7.68648 16.5161 7.04851 16.2269 6.46994C15.9376 5.89138 15.5176 5.38811 15.0001 5V2.5C14.4826 2.5 13.9722 2.62048 13.5094 2.85191C13.0465 3.08334 12.6439 3.41935 12.3334 3.83333L12.0834 4.16667H9.16675C7.84067 4.16667 6.5689 4.69345 5.63121 5.63113C4.69353 6.56881 4.16675 7.84058 4.16675 9.16667V10C4.16675 10.6469 4.31735 11.2848 4.60663 11.8634C4.89592 12.442 5.31593 12.9452 5.83341 13.3333V15.8333C5.83341 16.0543 5.92121 16.2663 6.07749 16.4226C6.23377 16.5789 6.44573 16.6667 6.66675 16.6667H8.33341C8.55443 16.6667 8.76639 16.5789 8.92267 16.4226C9.07895 16.2663 9.16675 16.0543 9.16675 15.8333V14.1667Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M13.3333 8.33337H13.3416" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M1.66675 6.66663V7.49996C1.66675 7.94199 1.84234 8.36591 2.1549 8.67847C2.46746 8.99103 2.89139 9.16663 3.33341 9.16663H4.16675"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-xs text-[var(--cinza-texto)]">Economia</p>
+                                <p class="text-xl font-bold text-[var(--preto-texto)]">R$ 850,00</p>
+                                <p class="text-xs text-[var(--verde-saldo)] mt-1">↗ 12%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Meta mensal -->
+                    <div class="bg-white rounded-2xl shadow-[0_2px_8px_0_rgba(26,21,48,0.06)] p-5">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M10.0001 18.3333C14.6025 18.3333 18.3334 14.6023 18.3334 9.99996C18.3334 5.39759 14.6025 1.66663 10.0001 1.66663C5.39771 1.66663 1.66675 5.39759 1.66675 9.99996C1.66675 14.6023 5.39771 18.3333 10.0001 18.3333Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M10 15C12.7614 15 15 12.7614 15 10C15 7.23858 12.7614 5 10 5C7.23858 5 5 7.23858 5 10C5 12.7614 7.23858 15 10 15Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M9.99992 11.6667C10.9204 11.6667 11.6666 10.9205 11.6666 10C11.6666 9.07957 10.9204 8.33337 9.99992 8.33337C9.07944 8.33337 8.33325 9.07957 8.33325 10C8.33325 10.9205 9.07944 11.6667 9.99992 11.6667Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-xs text-[var(--cinza-texto)]">Meta mensal</p>
+                                <p class="text-xl font-bold text-[var(--preto-texto)]">67%</p>
+
+                                <!-- Barra de progresso -->
+                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                                    <div class="bg-[var(--roxo)] h-1.5 rounded-full" style="width: 67%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ----- Gráfico de gastos + insight ----- -->
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-white rounded-2xl shadow-[0_2px_8px_0_rgba(26,21,48,0.06)] p-6">
+                        <h3 class="text-lg font-bold font-baloo mb-4">Gastos por categoria</h3>
+
+                        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                            <!-- Gráfico de rosca -->
+                            <img src="Grafico/Grafico.svg" alt="Gráfico de gastos por categoria"
+                                class="w-36 h-36 shrink-0">
+
+                            <!-- Legenda -->
+                            <ul class="flex-1 flex flex-col gap-3">
+                                <li class="flex items-center gap-3 text-sm">
+                                    <span class="flex items-center gap-2 flex-1">
+                                        <span class="w-3 h-3 rounded-full bg-[var(--roxo)]"></span>
+                                        Alimentação
+                                    </span>
+                                    <span class="w-24 text-right">R$ 752,50</span>
+                                    <span class="w-12 text-right text-xs text-[var(--cinza-texto)]">35%</span>
+                                </li>
+
+                                <li class="flex items-center gap-3 text-sm">
+                                    <span class="flex items-center gap-2 flex-1">
+                                        <span class="w-3 h-3 rounded-full bg-[var(--verde-saldo)]"></span>
+                                        Transporte
+                                    </span>
+                                    <span class="w-24 text-right">R$ 430,00</span>
+                                    <span class="w-12 text-right text-xs text-[var(--cinza-texto)]">20%</span>
+                                </li>
+
+                                <li class="flex items-center gap-3 text-sm">
+                                    <span class="flex items-center gap-2 flex-1">
+                                        <span class="w-3 h-3 rounded-full bg-[var(--amarelo)]"></span>
+                                        Lazer
+                                    </span>
+                                    <span class="w-24 text-right">R$ 387,00</span>
+                                    <span class="w-12 text-right text-xs text-[var(--cinza-texto)]">18%</span>
+                                </li>
+
+                                <li class="flex items-center gap-3 text-sm">
+                                    <span class="flex items-center gap-2 flex-1">
+                                        <span class="w-3 h-3 rounded-full bg-[var(--rosa)]"></span>
+                                        Moradia
+                                    </span>
+                                    <span class="w-24 text-right">R$ 258,00</span>
+                                    <span class="w-12 text-right text-xs text-[var(--cinza-texto)]">12%</span>
+                                </li>
+
+                                <li class="flex items-center gap-3 text-sm">
+                                    <span class="flex items-center gap-2 flex-1">
+                                        <span class="w-3 h-3 rounded-full bg-[var(--lilas)]"></span>
+                                        Outros
+                                    </span>
+                                    <span class="w-24 text-right">R$ 322,50</span>
+                                    <span class="w-12 text-right text-xs text-[var(--cinza-texto)]">15%</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Card de insight -->
+                    <div
+                        class="bg-white rounded-2xl shadow-[0_2px_8px_0_rgba(26,21,48,0.06)] p-6 flex flex-col items-center text-center">
+                        <img src="images/Mascote.png" alt="Mascote" class="w-16 h-16 mb-3">
+                        <h3 class="text-lg font-bold font-baloo">Boa semana, Larissa!</h3>
+                        <p class="text-sm text-[var(--cinza-texto)] mt-2">
+                            Você gastou 30% menos em delivery essa semana 🎉. Que tal aportar essa economia na sua
+                            reserva?
+                        </p>
+                        <button class="w-full bg-[var(--roxo)] text-white font-semibold py-3 rounded-xl mt-5">
+                            Ver mais insights
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- ----- Últimas transações ----- -->
+                <div class="bg-white rounded-2xl shadow-[0_2px_8px_0_rgba(26,21,48,0.06)] p-6 mt-4">
+
+                    <!-- Cabeçalho do card -->
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold font-baloo">Últimas transações</h3>
+                        <a href="#" class="text-sm font-semibold text-[var(--roxo)]">Ver todas →</a>
+                    </div>
+
+                    <!-- Lista de transações -->
+                    <ul class="flex flex-col">
+
+                        <li class="flex items-center gap-3 py-3 border-b border-gray-100">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path d="M8.33325 1.66675V3.33341" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M11.6667 1.66675V3.33341" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M13.3333 6.66675C13.5543 6.66675 13.7663 6.75455 13.9226 6.91083C14.0789 7.06711 14.1667 7.27907 14.1667 7.50008V14.1667C14.1667 15.0508 13.8155 15.8986 13.1904 16.5238C12.5652 17.1489 11.7174 17.5001 10.8333 17.5001H5.83333C4.94928 17.5001 4.10143 17.1489 3.47631 16.5238C2.85119 15.8986 2.5 15.0508 2.5 14.1667V7.50008C2.5 7.27907 2.5878 7.06711 2.74408 6.91083C2.90036 6.75455 3.11232 6.66675 3.33333 6.66675H15C15.8841 6.66675 16.7319 7.01794 17.357 7.64306C17.9821 8.26818 18.3333 9.11603 18.3333 10.0001C18.3333 10.8841 17.9821 11.732 17.357 12.3571C16.7319 12.9822 15.8841 13.3334 15 13.3334H14.1667"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M5 1.66675V3.33341" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Café da Manhã</p>
+                                <p class="text-xs text-[var(--cinza-texto)]">Alimentação</p>
+                            </div>
+                            <span class="hidden sm:inline text-xs text-[var(--cinza-texto)]">16/04</span>
+                            <span class="w-28 text-right text-sm text-[var(--preto-texto)]">- R$ 12,50</span>
+                        </li>
+
+                        <li class="flex items-center gap-3 py-3 border-b border-gray-100">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M13.3333 8.33325C13.3333 9.21731 12.9821 10.0652 12.357 10.6903C11.7319 11.3154 10.884 11.6666 9.99999 11.6666C9.11593 11.6666 8.26809 11.3154 7.64297 10.6903C7.01785 10.0652 6.66666 9.21731 6.66666 8.33325"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M2.58585 5.02832H17.4142" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M2.83333 4.55591C2.61696 4.84441 2.5 5.1953 2.5 5.55591V16.6667C2.5 17.1088 2.67559 17.5327 2.98816 17.8453C3.30072 18.1578 3.72464 18.3334 4.16667 18.3334H15.8333C16.2754 18.3334 16.6993 18.1578 17.0118 17.8453C17.3244 17.5327 17.5 17.1088 17.5 16.6667V5.55591C17.5 5.1953 17.383 4.84441 17.1667 4.55591L15.5 2.33341C15.3448 2.12642 15.1434 1.95842 14.912 1.8427C14.6806 1.72699 14.4254 1.66675 14.1667 1.66675H5.83333C5.57459 1.66675 5.3194 1.72699 5.08798 1.8427C4.85655 1.95842 4.65525 2.12642 4.5 2.33341L2.83333 4.55591Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Supermercado</p>
+                                <p class="text-xs text-[var(--cinza-texto)]">Alimentação</p>
+                            </div>
+                            <span class="hidden sm:inline text-xs text-[var(--cinza-texto)]">15/04</span>
+                            <span class="w-28 text-right text-sm text-[var(--preto-texto)]">- R$ 156.30</span>
+                        </li>
+
+                        <li class="flex items-center gap-3 py-3 border-b border-gray-100">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M15.8333 5.83333V3.33333C15.8333 3.11232 15.7455 2.90036 15.5893 2.74408C15.433 2.5878 15.221 2.5 15 2.5H4.16667C3.72464 2.5 3.30072 2.67559 2.98816 2.98816C2.67559 3.30072 2.5 3.72464 2.5 4.16667C2.5 4.60869 2.67559 5.03262 2.98816 5.34518C3.30072 5.65774 3.72464 5.83333 4.16667 5.83333H16.6667C16.8877 5.83333 17.0996 5.92113 17.2559 6.07741C17.4122 6.23369 17.5 6.44565 17.5 6.66667V10M17.5 10H15C14.558 10 14.134 10.1756 13.8215 10.4882C13.5089 10.8007 13.3333 11.2246 13.3333 11.6667C13.3333 12.1087 13.5089 12.5326 13.8215 12.8452C14.134 13.1577 14.558 13.3333 15 13.3333H17.5C17.721 13.3333 17.933 13.2455 18.0893 13.0893C18.2455 12.933 18.3333 12.721 18.3333 12.5V10.8333C18.3333 10.6123 18.2455 10.4004 18.0893 10.2441C17.933 10.0878 17.721 10 17.5 10Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M2.5 4.16675V15.8334C2.5 16.2754 2.67559 16.6994 2.98816 17.0119C3.30072 17.3245 3.72464 17.5001 4.16667 17.5001H16.6667C16.8877 17.5001 17.0996 17.4123 17.2559 17.256C17.4122 17.0997 17.5 16.8878 17.5 16.6667V13.3334"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Salário</p>
+                                <p class="text-xs text-[var(--cinza-texto)]">Receita</p>
+                            </div>
+                            <span class="hidden sm:inline text-xs text-[var(--cinza-texto)]">15/04</span>
+                            <span class="w-28 text-right text-sm text-[var(--verde-saldo)]">+ R$ 4500.00</span>
+                        </li>
+
+                        <li class="flex items-center gap-3 py-3 border-b border-gray-100">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M15.8333 14.1666H17.5C18 14.1666 18.3333 13.8333 18.3333 13.3333V10.8333C18.3333 10.0833 17.75 9.41659 17.0833 9.24992C15.5833 8.83325 13.3333 8.33325 13.3333 8.33325C13.3333 8.33325 12.25 7.16659 11.5 6.41659C11.0833 6.08325 10.5833 5.83325 9.99999 5.83325H4.16666C3.66666 5.83325 3.24999 6.16659 2.99999 6.58325L1.83332 8.99992C1.72297 9.32177 1.66666 9.65967 1.66666 9.99992V13.3333C1.66666 13.8333 1.99999 14.1666 2.49999 14.1666H4.16666"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M5.83332 15.8333C6.7538 15.8333 7.49999 15.0871 7.49999 14.1667C7.49999 13.2462 6.7538 12.5 5.83332 12.5C4.91285 12.5 4.16666 13.2462 4.16666 14.1667C4.16666 15.0871 4.91285 15.8333 5.83332 15.8333Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M7.5 14.1667H12.5" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M14.1667 15.8333C15.0871 15.8333 15.8333 15.0871 15.8333 14.1667C15.8333 13.2462 15.0871 12.5 14.1667 12.5C13.2462 12.5 12.5 13.2462 12.5 14.1667C12.5 15.0871 13.2462 15.8333 14.1667 15.8333Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Uber</p>
+                                <p class="text-xs text-[var(--cinza-texto)]">Transporte</p>
+                            </div>
+                            <span class="hidden sm:inline text-xs text-[var(--cinza-texto)]">14/04</span>
+                            <span class="w-28 text-right text-sm text-[var(--preto-texto)]">- R$ 23.80</span>
+                        </li>
+
+                        <li class="flex items-center gap-3 py-3 border-b border-gray-100">
+                            <div
+                                class="w-11 h-11 rounded-full bg-[var(--roxo-claro)] flex items-center justify-center shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                                    fill="none">
+                                    <path
+                                        d="M14.1667 1.66675H5.83332C4.91285 1.66675 4.16666 2.41294 4.16666 3.33341V16.6667C4.16666 17.5872 4.91285 18.3334 5.83332 18.3334H14.1667C15.0871 18.3334 15.8333 17.5872 15.8333 16.6667V3.33341C15.8333 2.41294 15.0871 1.66675 14.1667 1.66675Z"
+                                        stroke="#A63AE6" stroke-width="1.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M10 15H10.0083" stroke="#A63AE6" stroke-width="1.66667"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-semibold">Recarga</p>
+                                <p class="text-xs text-[var(--cinza-texto)]">Outros</p>
+                            </div>
+                            <span class="hidden sm:inline text-xs text-[var(--cinza-texto)]">13/04</span>
+                            <span class="w-28 text-right text-sm text-[var(--preto-texto)]">- R$ 30.00</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
